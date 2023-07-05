@@ -8,22 +8,51 @@ public class EnemyIA : MonoBehaviour
 {
     NavMeshAgent agent;
     public Transform[] ways;
+    public Transform playerTarger;
     int wayIndex;
     Vector3 tg;
-    // Start is called before the first frame update
+    bool isPatrolling = true; // Indica se o objeto está em patrulha ou perseguição
+    public float detectionRadius = 5f; // Raio de detecção do visor
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         UpdateDestino();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, tg) < 1)
+        if (isPatrolling)
         {
-            WayEnd();
-            UpdateDestino();
+            if (Vector3.Distance(transform.position, tg) < 1)
+            {
+                WayEnd();
+                UpdateDestino();
+            }
+
+            // Detectar o objeto "Player" dentro do raio de detecção
+            Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.CompareTag("Player"))
+                {
+                    StartChasing(collider.transform);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            // Se não estiver patrulhando, continuar perseguindo o objeto "Player"
+            agent.SetDestination(playerTarger.position);
+
+            // Verificar se o objeto "Player" saiu do raio de detecção
+            if (Vector3.Distance(transform.position, playerTarger.position) > detectionRadius)
+            {
+                StopChasing();
+                UpdateDestino();
+
+            }
         }
     }
 
@@ -36,9 +65,28 @@ public class EnemyIA : MonoBehaviour
     void WayEnd()
     {
         wayIndex++;
-        if(wayIndex == ways.Length)
+        if (wayIndex == ways.Length)
         {
-            wayIndex = 0;   
+            wayIndex = 0;
         }
+    }
+
+    void StartChasing(Transform target)
+    {
+        isPatrolling = false;
+        playerTarger = target;
+    }
+
+    void StopChasing()
+    {
+        isPatrolling = true;
+        playerTarger = null;
+    }
+
+    // Visualizar o raio de detecção no editor
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
