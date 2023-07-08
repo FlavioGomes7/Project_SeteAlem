@@ -723,8 +723,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anguloVisao: 45
   distanciaVisao: 10
-  raio: 0.64
-  eixoY: 0.4
   player: {fileID: 301109338}
   EstadoBriquedo: 0
 --- !u!1 &1028513131
@@ -1324,6 +1322,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5393215578589016642, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}
       propertyPath: m_Name

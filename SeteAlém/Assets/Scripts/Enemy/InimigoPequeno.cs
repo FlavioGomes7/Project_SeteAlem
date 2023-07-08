@@ -15,10 +15,6 @@ public class InimigoPequeno : MonoBehaviour
     private float           anguloVisao = 90;
     [SerializeField()]
     private float           distanciaVisao = 5;
-    [SerializeField()]
-    private float           raio = 0.7f;
-    [SerializeField()]
-    private float           eixoY = 0.4f;
 
     private NavMeshAgent    inimigo;
 
@@ -41,20 +37,16 @@ public class InimigoPequeno : MonoBehaviour
         if(ToTeVendo())
         {
             EstadoBriquedo = ToyEstado.PERSERGUINDO;
-            Debug.Log("caçando");
         }
         else
         {
             EstadoBriquedo = ToyEstado.ESTADOPARADO;
         }
-
-        if(Interacao() && Input.GetMouseButtonDown(0))
-        {
-            Destroy(gameObject);
-        }
+ 
 
         if(EstadoBriquedo == ToyEstado.PERSERGUINDO)
         {
+            
             Cacando();
         }
         
@@ -99,22 +91,5 @@ public class InimigoPequeno : MonoBehaviour
             return false;
         }
     }
-    bool Interacao()
-    {
-        Collider[] hitC = Physics.OverlapSphere(gameObject.transform.position + new Vector3(0, eixoY, 0), raio);
-                
-        if ( hitC != null )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position + new Vector3( 0, 0,eixoY), raio);
-    }
+    
 }
