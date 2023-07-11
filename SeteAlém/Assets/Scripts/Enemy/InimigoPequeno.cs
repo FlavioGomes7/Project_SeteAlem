@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public enum ToyEstado
 
 public class InimigoPequeno : MonoBehaviour
 {
+    public bool podeMatar = false;
+
     [SerializeField()]
     private float           anguloVisao = 90;
     [SerializeField()]
@@ -49,7 +52,17 @@ public class InimigoPequeno : MonoBehaviour
             
             Cacando();
         }
+
+        if(Input.GetMouseButtonDown(0) && podeMatar == true)
+        {
+            InimigoMorre();
+        }
         
+    }
+
+    private void InimigoMorre()
+    {
+        Destroy(gameObject);
     }
 
     void Cacando()
