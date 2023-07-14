@@ -9,34 +9,45 @@ public class Player_Controller : MonoBehaviour
 
     private Vector2 direction;
     private Vector2 lookDirection;
+    private Vector3 Movement;
 
     [SerializeField] private float speed;
-    [SerializeField] private float mouseSensitivity;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float gravity;
+
     private CharacterController cc;
-    private Transform playerBody;
+    private GameObject pOV;
 
     void Start()
     {
         
         cc = GetComponent<CharacterController>();
-        playerBody = gameObject.GetComponent<Transform>();
+        pOV = GetComponentInChildren<GameObject>();
         Cursor.lockState = CursorLockMode.Locked;
+
 
     }
 
     void Update()
     {
-        cc.Move(new Vector3 (direction.x, 0, direction.y) * speed * Time.deltaTime);
-
-        
-        //xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-        playerBody.Rotate(Vector3.up);
+        cc.Move(Movement * speed * Time.deltaTime);
+        Movement.y += gravity * Time.deltaTime; 
     }
 
     public void SetDirection(InputAction.CallbackContext value)
     {
         direction = value.ReadValue<Vector2>();
+        Movement = new Vector3 (direction.x, 0, direction.y);
+    }
+
+    public void SetJump(InputAction.CallbackContext value)
+    {
+        Movement.y = jumpForce / 10;
+    }
+
+    public void SetCrounch()
+    {
+
     }
     
     /*public void SetMouseDirection(InputAction.CallbackContext value)

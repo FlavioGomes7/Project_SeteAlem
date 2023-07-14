@@ -769,7 +769,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  mouseSensitivity: 0
+  jumpForce: 5
+  gravity: -2
 --- !u!114 &1140744893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,6 +817,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: bdbff0f8-2cca-40db-8042-5df44d0461a0
     m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1140744892}
+        m_TargetAssemblyTypeName: Player_Controller, Assembly-CSharp
+        m_MethodName: SetJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 57318dfd-852f-4977-92d3-7dd0e8742c47
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
