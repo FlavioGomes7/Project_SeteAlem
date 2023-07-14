@@ -68,6 +68,7 @@ public class InimigoPequeno : MonoBehaviour
     void Cacando()
     {
         inimigo.SetDestination(point.position);
+       
     }
     void Amimi()
     {
