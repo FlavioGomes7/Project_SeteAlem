@@ -769,8 +769,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  sprintSpeed: 30
+  walkSpeed: 20
   jumpForce: 5
+  crunchHeight: 0.1
   gravity: -2
+  pOV: {fileID: 541828173}
 --- !u!114 &1140744893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,6 +837,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 57318dfd-852f-4977-92d3-7dd0e8742c47
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1140744892}
+        m_TargetAssemblyTypeName: Player_Controller, Assembly-CSharp
+        m_MethodName: SetCrounch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ef67c4ae-f651-450b-af07-25b949ded3d7
+    m_ActionName: Player/Crunch[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1140744892}
+        m_TargetAssemblyTypeName: Player_Controller, Assembly-CSharp
+        m_MethodName: SetSprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 929147f1-f608-4649-b15e-f739c29b4ccd
+    m_ActionName: Player/Sprint[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
