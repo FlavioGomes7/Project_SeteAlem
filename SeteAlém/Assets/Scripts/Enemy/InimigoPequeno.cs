@@ -12,8 +12,8 @@ public enum ToyEstado
 
 public class InimigoPequeno : MonoBehaviour
 {
-    public bool podeMatar = false;
-
+    [SerializeField] private matarInimigo enemyBackDamage;
+    Player_Inventory inventory;
     [SerializeField()]
     private float           anguloVisao = 90;
     [SerializeField()]
@@ -29,6 +29,7 @@ public class InimigoPequeno : MonoBehaviour
     public ToyEstado EstadoBriquedo;
     void Start()
     {
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Inventory>();
         EstadoBriquedo = ToyEstado.ESTADOPARADO;
         inimigo = GetComponent<NavMeshAgent>();
         point = GameObject.Find("PlayerCapsule").transform;
@@ -52,8 +53,7 @@ public class InimigoPequeno : MonoBehaviour
             
             Cacando();
         }
-
-        if(Input.GetMouseButtonDown(0) && podeMatar == true)
+        if(Input.GetMouseButtonDown(0) && enemyBackDamage.podeMatar)
         {
             InimigoMorre();
         }
@@ -62,7 +62,9 @@ public class InimigoPequeno : MonoBehaviour
 
     private void InimigoMorre()
     {
+        inventory.UseScissor();
         Destroy(gameObject);
+        
     }
 
     void Cacando()
@@ -105,5 +107,4 @@ public class InimigoPequeno : MonoBehaviour
             return false;
         }
     }
-    
 }

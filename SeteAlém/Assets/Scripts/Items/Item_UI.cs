@@ -12,7 +12,7 @@ public class Item_UI : MonoBehaviour
         scissorsText = GetComponent<TextMeshProUGUI>();
         scissorsText.text = "Scissors: 0";
     }
-    public void UpdateDiamondText(Player_Inventory playerInventory)
+    public void UpdateScissorsText(Player_Inventory playerInventory)
     {
 
         scissorsText.text = "Scissors: " + playerInventory.NumberOfScissors.ToString();

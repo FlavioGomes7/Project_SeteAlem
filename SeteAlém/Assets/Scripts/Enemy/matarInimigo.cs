@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class matarInimigo : MonoBehaviour
 {
-    InimigoPequeno _IP;
+    Player_Inventory inventory;
+    public bool podeMatar;
     private void Start()
     {
-        _IP = FindObjectOfType<InimigoPequeno>();
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Inventory>();
+
     }
-    private void OnTriggerStay(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.CompareTag("Player"))
         {
-            Debug.Log("verdadeiro");
-            _IP.podeMatar = true;
+            if (inventory.NumberOfScissors > 0)
+            {
+                Debug.Log("verdadeiro");
+                podeMatar = true;
+            }
+            else
+            {
+                Debug.Log("NAO PODE MATAR -  FALTA DE TESOURAS - falso");
+                podeMatar = false;
+            }
         }
-        else
-        {
-            _IP.podeMatar = false;
-            Debug.Log("falso");
-        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("SAIU");
+        podeMatar = false;
     }
 }
