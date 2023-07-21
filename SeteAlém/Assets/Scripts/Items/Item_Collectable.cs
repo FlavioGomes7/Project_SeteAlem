@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Item_Collectable : MonoBehaviour
 {
+    [SerializeField] public ItemModel itemScriptable;
     private bool isLookingItem;
-    public int scissorItem;
     private Outline outlineItem;
+    private Player_Inventory inventory;
     // Start is called before the first frame update
     void Start()
     {
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Inventory>();
         outlineItem = GetComponent<Outline>();
         outlineItem.OutlineWidth = 0f;
     }
@@ -23,6 +25,7 @@ public class Item_Collectable : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Debug.Log("Press E");
+                inventory.CollectedScissor();
                 Destroy(gameObject);
             }
         }
@@ -37,12 +40,9 @@ public class Item_Collectable : MonoBehaviour
         outlineItem.OutlineWidth = 0f;
         isLookingItem = false;
     }
-    /*private void OnTriggerEnter(Collider other)
+    public string SaveTypeOfItem()
     {
-        if (other.CompareTag("Player")){
-            scissorItem++;
-            Destroy(gameObject);
-        }
+        string typeItem = itemScriptable.GetNameItem();
+        return typeItem;
     }
-    */
 }

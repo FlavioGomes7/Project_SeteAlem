@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class Player_Inventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public UnityEvent<Player_Inventory> OnScissorsCollected;
+    public int NumberOfScissors {get; private set;}
+    public void CollectedScissor()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        NumberOfScissors++;
+        OnScissorsCollected.Invoke(this);
     }
 }
