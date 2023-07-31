@@ -41,7 +41,7 @@ public partial class @Player_Input : IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""bdbff0f8-2cca-40db-8042-5df44d0461a0"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
@@ -131,17 +131,6 @@ public partial class @Player_Input : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2494460b-4b81-4635-af4e-36e467ba2ddc"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""6a1cf275-360c-4141-998f-47fc8c042324"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -170,6 +159,17 @@ public partial class @Player_Input : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3d57d48-a052-4ec5-bb43-d2e056b8f37f"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
