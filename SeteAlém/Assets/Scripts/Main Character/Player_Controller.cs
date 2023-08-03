@@ -11,6 +11,7 @@ public class Player_Controller : MonoBehaviour
     private Vector3 Movement;
     private float _threshold = 0.01f;
 
+    [SerializeField] private bool isGrounded;
     [SerializeField] private float speed;
     [SerializeField] private float sprintSpeed;
     [SerializeField] private float walkSpeed;
@@ -42,10 +43,31 @@ public class Player_Controller : MonoBehaviour
     {
         cc.Move(Movement * speed * Time.deltaTime);
         Movement = transform.right * direction.x + transform.forward * direction.y;
-        Movement.y += gravity * Time.deltaTime;
-        Debug.Log(speed); 
+
+        if(!isGrounded)
+        { 
+            Movement.y += gravity * Time.deltaTime;
+        }
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Ground"))
+        {
+            Debug.Log("ta no chão");
+            isGrounded = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Ground"))
+        {
+            Debug.Log("não ta no chão");
+            isGrounded = false;
+        }
+
+    }
 
     public void OnMove(InputAction.CallbackContext value)
     {
@@ -56,7 +78,10 @@ public class Player_Controller : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
-        Movement.y = jumpForce / 10;
+        if(isGrounded)
+        {
+            Movement.y = jumpForce;
+        }
     }
 
     public void OnCrounch(InputAction.CallbackContext value)

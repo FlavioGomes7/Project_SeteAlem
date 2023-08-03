@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - inimigoMenor
   - Collectable
+  - Ground
   layers:
   - Default
   - TransparentFX
