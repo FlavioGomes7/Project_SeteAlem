@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShaderGraphGrid_01_Mat
+  m_Name: ShaderGraphGrid_01_Mat 1
   m_Shader: {fileID: -6465566751694194690, guid: b8d7679189d4a5940af46004f3870920,
     type: 3}
   m_ValidKeywords: []
@@ -120,8 +120,8 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - Color_2B671050: {r: 0, g: 0.7633586, b: 1, a: 0}
-    - Color_30A0CA2F: {r: 0, g: 0, b: 0, a: 0}
+    - Color_2B671050: {r: 1, g: 0.6, b: 0, a: 0}
+    - Color_30A0CA2F: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
