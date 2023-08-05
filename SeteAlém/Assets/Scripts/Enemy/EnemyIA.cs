@@ -6,6 +6,11 @@ using UnityEngine.AI;
 
 public class EnemyIA : MonoBehaviour
 {
+    [Range(10, 360)]
+    public int viewRayCount;
+    [SerializeField][Range(0, 360)] private float fieldOfViewAngle; // Angle of the field of view
+    [SerializeField] private LayerMask playerLayer; // LayerMask to find the player
+    [SerializeField] private LayerMask obstacleLayer;
     NavMeshAgent agent;
     public Transform[] ways;
     public Transform playerTarger;
@@ -30,28 +35,37 @@ public class EnemyIA : MonoBehaviour
                 UpdateDestino();
             }
 
-            // Detectar o objeto "Player" dentro do raio de detecção
-            Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
-            foreach (Collider collider in colliders)
+            // Detect the player within the detection radius
+            if (Physics.CheckSphere(transform.position, detectionRadius, playerLayer))
             {
-                if (collider.CompareTag("Player"))
+                // Get the player
+                Collider player = Physics.OverlapSphere(transform.position, detectionRadius, playerLayer)[0];
+
+                Vector3 directionToTarget = (player.transform.position - transform.position).normalized;
+                if (Vector3.Dot(transform.forward, directionToTarget) > Mathf.Cos(fieldOfViewAngle / 2f))
                 {
-                    StartChasing(collider.transform);
-                    break;
+                    if (!Physics.Linecast(transform.position, player.transform.position, obstacleLayer))
+                    {
+                        Debug.DrawLine(transform.position, player.transform.position, Color.green);
+                        StartChasing(player.transform);
+                    }
+                    else
+                    {
+                        Debug.DrawLine(transform.position, player.transform.position, Color.red);
+                    }
                 }
             }
         }
         else
         {
-            // Se não estiver patrulhando, continuar perseguindo o objeto "Player"
+            // If not patrolling, continue chasing the player
             agent.SetDestination(playerTarger.position);
 
-            // Verificar se o objeto "Player" saiu do raio de detecção
+            // Check if the player has left the detection radius
             if (Vector3.Distance(transform.position, playerTarger.position) > detectionRadius)
             {
                 StopChasing();
                 UpdateDestino();
-
             }
         }
     }
@@ -84,9 +98,31 @@ public class EnemyIA : MonoBehaviour
     }
 
     // Visualizar o raio de detecção no editor
-    private void OnDrawGizmosSelected()
+    
+    void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        DrawFieldOfView();
     }
+
+    void DrawFieldOfView()
+    {
+        float stepAngleSize = fieldOfViewAngle / viewRayCount;
+        for (int i = 0; i <= viewRayCount; i++)
+        {
+            float angle = transform.eulerAngles.y - fieldOfViewAngle / 2 + stepAngleSize * i;
+            Vector3 direction = DirFromAngle(angle, false);
+            Gizmos.DrawRay(transform.position, direction * detectionRadius);
+        }
+    }
+
+    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
+    {
+        if (!angleIsGlobal)
+        {
+            angleInDegrees += transform.eulerAngles.y;
+        }
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+
 }
